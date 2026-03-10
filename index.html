@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
 
@@ -17,7 +16,7 @@
     ═══════════════════════════════════════ -->
     <nav class="nav" id="nav">
       <div class="nav__inner container">
-        <a href="#" class="nav__logo">APEX<span class="logo-dot">.</span></a>
+        <a href="#hero" class="nav__logo">APEX<span class="logo-dot">.</span></a>
         <div class="nav__links" id="navLinks">
           <a href="#about" class="nav__link">About</a>
           <a href="#programme" class="nav__link">Programme</a>
@@ -25,14 +24,14 @@
           <a href="#faq" class="nav__link">FAQ</a>
         </div>
         <a href="#apply" class="btn btn--primary nav__cta">Reserve Your Spot</a>
-        <button class="nav__hamburger" id="hamburger" aria-label="Menu">
+        <button class="nav__hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
           <span></span><span></span><span></span>
         </button>
       </div>
     </nav>
 
     <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
       <a href="#about" class="mobile-menu__link">About</a>
       <a href="#programme" class="mobile-menu__link">Programme</a>
       <a href="#results" class="mobile-menu__link">Results</a>
@@ -47,7 +46,7 @@
       <div class="hero__glow"></div>
       <div class="container hero__inner">
         <div class="hero__content fade-up">
-          <span class="eyebrow">The Apex Programme · 2025 Cohort</span>
+          <span class="eyebrow">The Apex Programme · 2026 Cohort</span>
           <h1 class="hero__headline">
             You Don't Need More Content.<br />
             You Need a&nbsp;<em>System</em> That&nbsp;Works.
@@ -528,7 +527,7 @@
     <section class="cta-mid section">
       <div class="container cta-mid__inner fade-up">
         <h2 class="h2 cta-mid__headline">Ready to See If You're a Fit?</h2>
-        <p class="cta-mid__sub">Spots for the 2025 cohort are strictly limited. Don't lose your place to someone who was simply faster.</p>
+        <p class="cta-mid__sub">Spots for the 2026 cohort are strictly limited. Don't lose your place to someone who was simply faster.</p>
         <a href="#apply" class="btn btn--white btn--lg">Apply in 3 Minutes</a>
         <p class="cta-mid__note">No commitment required. We'll review your application and come back within 48 hours.</p>
       </div>
@@ -611,9 +610,9 @@
         <span class="eyebrow eyebrow--light">Your next chapter</span>
         <h2 class="h2 final-cta__headline">Your Next Chapter Starts With One Decision.</h2>
         <p class="final-cta__sub">
-          The 2025 Apex cohort is limited to 40 members to ensure every participant gets real attention, not just access. When it's full, it's closed.
+          The 2026 Apex cohort is limited to 40 members to ensure every participant gets real attention, not just access. When it's full, it's closed.
         </p>
-        <a href="#" class="btn btn--white btn--lg">Reserve My Spot Now</a>
+        <a href="mailto:hello@apex.com?subject=Reserve%20My%20Spot%20Now" class="btn btn--white btn--lg">Reserve My Spot Now</a>
         <div class="final-cta__trust">
           <span>🔒 Secure checkout</span>
           <span>✓ 14-day guarantee</span>
@@ -646,7 +645,7 @@
         <div class="footer__legal">
           <a href="#" class="footer__legal-link">Privacy Policy</a>
           <a href="#" class="footer__legal-link">Terms of Service</a>
-          <span class="footer__copy">© 2025 Apex Programme. All rights reserved.</span>
+          <span class="footer__copy">© 2026 Apex Programme. All rights reserved.</span>
         </div>
       </div>
     </footer>

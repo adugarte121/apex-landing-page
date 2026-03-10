@@ -11,27 +11,44 @@ import './style.css';
 
 // ── STICKY NAV ────────────────────────────────
 const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
+if (nav) {
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+}
 
 // ── MOBILE MENU ───────────────────────────────
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
 const mobileLinks = document.querySelectorAll('.mobile-menu__link, .mobile-menu__cta');
 
-hamburger.addEventListener('click', () => {
-  const isOpen = mobileMenu.classList.toggle('open');
+function setMenuState(isOpen) {
+  if (!hamburger || !mobileMenu) return;
+  mobileMenu.classList.toggle('open', isOpen);
   hamburger.setAttribute('aria-expanded', isOpen);
+  mobileMenu.setAttribute('aria-hidden', String(!isOpen));
   document.body.style.overflow = isOpen ? 'hidden' : '';
-});
+}
 
-mobileLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    mobileMenu.classList.remove('open');
-    document.body.style.overflow = '';
+if (hamburger && mobileMenu) {
+  hamburger.addEventListener('click', () => {
+    const isOpen = !mobileMenu.classList.contains('open');
+    setMenuState(isOpen);
   });
-});
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      setMenuState(false);
+    });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && mobileMenu.classList.contains('open')) {
+      setMenuState(false);
+      hamburger.focus();
+    }
+  });
+}
 
 // ── SCROLL FADE-UP ANIMATIONS ────────────────
 const fadeEls = document.querySelectorAll('.fade-up');
@@ -89,23 +106,33 @@ counters.forEach(el => counterObserver.observe(el));
 // ── FAQ ACCORDION ─────────────────────────────
 const faqItems = document.querySelectorAll('.faq__item');
 
-faqItems.forEach(item => {
+faqItems.forEach((item, index) => {
   const btn = item.querySelector('.faq__question');
   const answer = item.querySelector('.faq__answer');
+  const answerId = `faq-answer-${index + 1}`;
+
+  answer.id = answerId;
+  answer.hidden = true;
+  btn.setAttribute('aria-controls', answerId);
 
   btn.addEventListener('click', () => {
     const isOpen = btn.getAttribute('aria-expanded') === 'true';
 
     // Close all
     faqItems.forEach(i => {
-      i.querySelector('.faq__question').setAttribute('aria-expanded', 'false');
-      i.querySelector('.faq__answer').classList.remove('open');
+      const question = i.querySelector('.faq__question');
+      const panel = i.querySelector('.faq__answer');
+
+      question.setAttribute('aria-expanded', 'false');
+      panel.classList.remove('open');
+      panel.hidden = true;
     });
 
     // Open clicked (if it was closed)
     if (!isOpen) {
       btn.setAttribute('aria-expanded', 'true');
       answer.classList.add('open');
+      answer.hidden = false;
     }
   });
 });
@@ -114,6 +141,7 @@ faqItems.forEach(item => {
 if (faqItems.length) {
   faqItems[0].querySelector('.faq__question').setAttribute('aria-expanded', 'true');
   faqItems[0].querySelector('.faq__answer').classList.add('open');
+  faqItems[0].querySelector('.faq__answer').hidden = false;
 }
 
 // ── SMOOTH ANCHOR SCROLL ──────────────────────
@@ -124,7 +152,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     const target = document.querySelector(targetId);
     if (!target) return;
     e.preventDefault();
-    const navHeight = nav.offsetHeight;
+    const navHeight = nav ? nav.offsetHeight : 0;
     const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 16;
     window.scrollTo({ top, behavior: 'smooth' });
   });
